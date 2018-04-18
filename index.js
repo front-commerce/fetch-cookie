@@ -32,11 +32,17 @@ module.exports = function fetchCookieDecorator (fetch, jar) {
           return res
         }
 
-        return Promise.all(cookies.map(function (cookie) {
-          return setCookie(cookie, res.url)
-        })).then(function () {
-          return res
-        })
+        return Promise.all(
+          cookies
+            .filter(function(cookie) {
+              return cookie.indexOf("=") !== -1;
+            })
+            .map(function(cookie) {
+              return setCookie(cookie, res.url);
+            })
+        ).then(function() {
+          return res;
+        });
       })
   }
 }
