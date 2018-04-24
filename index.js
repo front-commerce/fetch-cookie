@@ -28,7 +28,7 @@ module.exports = function fetchCookieDecorator (fetch, jar) {
           var cookies = res.headers.raw()["set-cookie"];
         }
 
-        if (!cookies.length) {
+        if (!cookies || !cookies.length) {
           return res
         }
 
